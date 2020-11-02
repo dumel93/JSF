@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<HTML lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <title>JSF Hibernate</title>
+    <style type="text/css">
+        .btnPos {
+            margin: 12px;
+        }
+        .marginLeft12 {
+            margin-left: 12px;
+        }
+        .successText {
+            padding-left: 22px;
+            font-weight: bold;
+            color: green;
+        }
+        .depart-table {
+            border-collapse: collapse;
+        }
+        .depart-table-header {
+            text-align: center;
+            background: none repeat scroll 0 0 #E5E5E5;
+            border-bottom: 1px solid #BBBBBB;
+            padding: 2px;
+        }
+        .depart-table-row {
+            padding: 12px;
+            text-align: center;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div style="text-align: center;"><h2>JSF Hibernate Crud Example</h2></div>
+
+    <h3 class="marginLeft12">1. New Department Form</h3>
+    <h:form id="DepartmentSaveForm" styleClass="form-horizontal">
+        <h:panelGrid columns="2">
+            <div class="form-group">
+                <h:outputLabel value="Name:" styleClass="control-label" />
+                <div class="col-xs-10">
+                    <h:inputText value="#{departmentController.name}" styleClass="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel value="City:" styleClass="control-label" />
+                <div class="col-xs-10">
+                    <h:inputText value="#{departmentController.city}" styleClass="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <h:commandButton value="Save Record" action="#{departmentController.createDepartment}" styleClass="btn btn-primary btn-sm btnPos" />
+                </div>
+            </div>
+        </h:panelGrid>
+        <h:outputText id="saveResult" rendered="#{not empty createdDepartmentId}" value="!! Department Record Saved In Database !!" styleClass="successText" />
+    </h:form>
+    <br /><br />
+
+    <h3  class="marginLeft12">2. Delete Department Record</h3>
+    <h:form id="deleteDepartmentById" styleClass="form-horizontal">
+        <h:panelGrid columns="2">
+            <div class="form-group">
+                <h:outputLabel value="Id:" styleClass="control-label" />
+                <div class="col-xs-10">
+                    <h:inputText value="#{departmentController.id}" styleClass="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <h:commandButton value="Delete Department Record" action="#{departmentController.deleteDepartment}" styleClass="btn btn-primary btn-sm btnPos" />
+                </div>
+            </div>
+        </h:panelGrid>
+        <h:outputText id="deleteResult" rendered="#{not empty deletedDepartmentId}" value="!! Department Record Deleted From Database !!" styleClass="successText" />
+    </h:form>
+    <br /><br />
+
+    <h3  class="marginLeft12">3. Find Department Record</h3>
+    <h:form id="showDepartment">
+        <h:panelGrid columns="2">
+            <div class="form-group">
+                <h:outputLabel value="Id:" styleClass="control-label" />
+                <div class="col-xs-10">
+                    <h:inputText value="#{departmentController.id}" styleClass="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <h:commandButton value="Show Department" action="#{departmentController.findDepartment}" styleClass="btn btn-primary btn-sm btnPos" />
+                </div>
+            </div>
+            <h:dataTable id="findDepartmentRecordDetails" rendered="#{not empty findDepartmentById}" value="#{departmentController.department}" styleClass="depart-table" headerClass="depart-table-header">
+                <h:column>
+                    <f:facet name = "header">Id</f:facet><h:outputText value="#{departmentController.department.id}" styleClass="depart-table-row" />
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">Name</f:facet><h:outputText value="#{departmentController.department.name}" styleClass="depart-table-row" />
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">City</f:facet><h:outputText value="#{departmentController.department.city}" styleClass="depart-table-row" />
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">Min Sakary</f:facet><h:outputText value="#{departmentController.department.minSalary}" styleClass="depart-table-row" />
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">Max Sakary</f:facet><h:outputText value="#{departmentController.department.maxSalary}" styleClass="depart-table-row" />
+                </h:column>
+            </h:dataTable>
+        </h:panelGrid>
+    </h:form>
+    <br /><br />
+
+    <h3  class="marginLeft12">4. Update Department Details</h3>
+    <h:form id="updateStudentRecord">
+        <h:panelGrid columns="2">
+            <div class="form-group">
+                <h:outputLabel value="Id:" styleClass="control-label" />
+                <div class="col-xs-10">
+                    <h:inputText value="#{departmentController.id}" styleClass="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h:outputLabel value="Id:" styleClass="control-label" />
+                <div class="col-xs-10">
+                    <h:inputText value="#{departmentController.name}" styleClass="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel value="Department:" styleClass="control-label" />
+                <div class="col-xs-10">
+                    <h:inputText value="#{departmentController.city}" styleClass="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <h:commandButton value="Show Department" action="#{departmentController.updateDepartment}" styleClass="btn btn-primary btn-sm btnPos" />
+                </div>
+            </div>
+        </h:panelGrid>
+        <h:outputText id="updateResult" rendered="#{not empty updatedDepartmentRecord}" value="!! Department Record Updated In Database !!" styleClass="successText" />
+    </h:form>
+</h:body>
+</HTML>
